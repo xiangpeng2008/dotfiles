@@ -1,0 +1,157 @@
+
+set nocompatible "should be put in the very start
+
+" pluggin ------------- {{{
+call plug#begin('~/.vim/plugged')
+Plug 'scrooloose/nerdcommenter'
+"Plug 'vimwiki/vimwiki'
+"Plug 'tmhedberg/SimpylFold'
+"Plug 'Vimjas/vim-python-pep8-indent'
+"Plug 'vim-scripts/delimitMate.vim'
+"Plug 'morhetz/gruvbox'
+Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'fladson/vim-kitty'
+Plug 'preservim/nerdtree'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-fugitive'
+
+if $TERM !=# "xterm-kitty"
+    Plug 'epeli/slimux'
+else
+    Plug 'xiangpeng2008/vim-slime'
+endif
+
+Plug 'xiangpeng2008/vim_xiangpeng'
+
+call plug#end()
+" }}}
+
+" Basic Settings ---------- {{{
+source ~/.vim/local.vim
+
+let mapleader = "," "set leader to ,
+
+" from learn vimscript the hard way
+" wrap long line
+set wrap
+
+" set no number
+set nonumber
+set relativenumber
+" when using the >> or << commands, shift lines by 4 spaces
+set shiftwidth=4
+
+set hlsearch incsearch
+" ignorecase and smartcase can work together
+set ignorecase
+set smartcase
+
+"split below and right, which is more natural
+set splitbelow
+set splitright
+" show a visual line under the cursor's current line
+set cursorline
+
+" set undo, backup, swap directory to under .vim
+set undodir=~/.vim/.undo
+set undofile
+set backupdir=~/.vim/.backup
+set directory=~/.vim/.swp
+
+" always show status bar
+set laststatus=2
+
+" use dark background
+set background=dark
+"autocmd vimenter * colorscheme gruvbox
+
+
+"set statusline=Current:\ %-5l\ Total:\ %-5L\ %F
+"set statusline=\ %-3p%%\ \ \ Total:\ %-5L\ %m\ %F
+set statusline=%F\ %-3p%%\ \ \ Total:\ %-5L\ %m\ %y
+
+"stops the search at the end of the file
+set nowrapscan
+
+
+" set tabs to have 4 spaces
+set ts=4
+
+" change the current working directory whenever open a file
+set autochdir
+
+" indent when moving to the next line while writing code
+set autoindent
+set smartindent
+
+" expand tabs into spaces
+set expandtab
+
+
+" avoid error No write since last change (add ! to override)
+set hidden
+
+" use vim as  c++ IDE
+" force vim to source .vimrc file if it present in workingg directory
+set exrc
+" restrict usage of some commands in non-default .vimrc files
+set secure
+
+" F10 to open buffer list
+set wildchar=<Tab> wildmenu wildmode=full
+set wildcharm=<C-Z>
+" }}}
+
+" set nerd comment for q language
+let g:NERDCustomDelimiters = { 'q': { 'left': '//' } }
+
+" leave insert mode quickly ------------------ {{{
+if ! has('gui_running')
+  set ttimeoutlen=10
+  augroup FastEscape
+    autocmd!
+    au InsertEnter * set timeoutlen=0
+    au InsertLeave * set timeoutlen=1000
+  augroup END
+endif
+" }}}
+
+colorscheme dracula
+"let g:gruvbox_contrast_dark='medium'
+"let g:gruvbox_contrast_dark='soft'
+"let g:gruvbox_contrast_dark='hard'
+
+
+" vimwiki
+"filetype plugin indent on
+filetype plugin on
+syntax enable
+
+" read a .vim file from the same directory as the file I'm editing, regardless of what the current directory is.
+let b:thisdir=expand("%:p:h")
+let b:vim=b:thisdir."/.vim"
+if (filereadable(b:vim))
+  execute "source ".b:vim
+endif
+
+
+let &t_SI .= "\<Esc>[?2004h"
+let &t_EI .= "\<Esc>[?2004l"
+
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlPLastMode'
+
+
+" config for kitty {{{
+let g:slime_target = "kitty"
+if $TERM !=# "xterm-kitty"
+    source ~/.vim/slimux.vim
+else
+    source ~/.vim/vim-slime.vim
+    let &t_ut=''
+endif
+"}}}
+
+
+
