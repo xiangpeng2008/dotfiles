@@ -28,7 +28,6 @@ call plug#end()
 " }}}
 
 " Basic Settings ---------- {{{
-"source ~/.vim/local.vim
 
 let mapleader = "," "set leader to ,
 
@@ -174,9 +173,9 @@ let g:airline#extensions#default#layout = [
 " config for kitty {{{
 let g:slime_target = "kitty"
 if $TERM !=# "xterm-kitty"
-    "source ~/.vim/slimux.vim
+    source ~/.vim/plugged/vim_xiangpeng/xterm/slimux.vim
 else
-    source ~/.vim/vim-slime.vim
+    source ~/.vim/plugged/vim_xiangpeng/xterm/vim-slime.vim
     let &t_ut=''
 endif
 "}}}
