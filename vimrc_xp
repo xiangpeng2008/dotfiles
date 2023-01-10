@@ -11,7 +11,7 @@ Plug 'scrooloose/nerdcommenter'
 "Plug 'morhetz/gruvbox'
 Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'fladson/vim-kitty'
+Plug 'fladson/vim-kitty', {'branch': 'main'}
 Plug 'preservim/nerdtree'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
@@ -107,6 +107,7 @@ set wildcharm=<C-Z>
 set tagrelative
 set tags=tags;
 set tags^=.git/tags
+let g:slimux_select_from_current_window=1
 
 " }}}
 
@@ -184,8 +185,8 @@ endif
 
 "Source the SP snippet loading functionality
 " to double check if this is needed
-let sppluginpath="/opt/third/vim-plugins/1.0.1/"
-execute 'source ' . fnameescape(sppluginpath . "sp-init/init.vim")
+"let sppluginpath="/opt/third/vim-plugins/1.0.1/"
+"execute 'source ' . fnameescape(sppluginpath . "sp-init/init.vim")
 " hite whitespace in difference
 set diffopt+=iwhite
 set diffexpr=DiffW()
