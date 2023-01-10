@@ -28,7 +28,7 @@ call plug#end()
 " }}}
 
 " Basic Settings ---------- {{{
-source ~/.vim/local.vim
+"source ~/.vim/local.vim
 
 let mapleader = "," "set leader to ,
 
@@ -39,8 +39,6 @@ set wrap
 " set no number
 set nonumber
 set relativenumber
-" when using the >> or << commands, shift lines by 4 spaces
-set shiftwidth=4
 
 set hlsearch incsearch
 " ignorecase and smartcase can work together
@@ -87,7 +85,11 @@ set smartindent
 
 " expand tabs into spaces
 set expandtab
+" when using the >> or << commands, shift lines by 4 spaces
+set shiftwidth=4
 
+" show the matching part of the pair for [] {} and ()
+set showmatch
 
 " avoid error No write since last change (add ! to override)
 set hidden
@@ -101,6 +103,11 @@ set secure
 " F10 to open buffer list
 set wildchar=<Tab> wildmenu wildmode=full
 set wildcharm=<C-Z>
+
+set tagrelative
+set tags=tags;
+set tags^=.git/tags
+
 " }}}
 
 " set nerd comment for q language
@@ -116,6 +123,16 @@ if ! has('gui_running')
   augroup END
 endif
 " }}}
+
+" only for linux, to double check
+augroup rsync
+    autocmd!
+    "autocmd BufWrite * :execute '!echo rsync ' expand('%:p') 'nyzls147c:'.expand('%:p').';'
+    "autocmd BufWrite * :execute silent! '!rsync ' expand('%:p') 'nyzls147c:'.expand('%:p') '$1 > /dev/null 2>&1'
+    autocmd BufWrite * silent !rsync %:p nyzls147c:%:p $1>/dev/null 2>&1 &
+" highlight search
+set hlsearch
+
 
 colorscheme dracula
 "let g:gruvbox_contrast_dark='medium'
@@ -141,12 +158,22 @@ let &t_EI .= "\<Esc>[?2004l"
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlPLastMode'
+let g:ctrlp_root_markers = ['.ctrlp']
+
+" double check, airline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+let g:airline#extensions#default#layout = [
+  \ [ 'b', 'c'],
+  \ [ 'x', 'y', 'z', 'warning']
+\ ]
+
 
 
 " config for kitty {{{
 let g:slime_target = "kitty"
 if $TERM !=# "xterm-kitty"
-    source ~/.vim/slimux.vim
+    "source ~/.vim/slimux.vim
 else
     source ~/.vim/vim-slime.vim
     let &t_ut=''
@@ -154,4 +181,23 @@ endif
 "}}}
 
 
+
+"Source the SP snippet loading functionality
+" to double check if this is needed
+let sppluginpath="/opt/third/vim-plugins/1.0.1/"
+execute 'source ' . fnameescape(sppluginpath . "sp-init/init.vim")
+" hite whitespace in difference
+set diffopt+=iwhite
+set diffexpr=DiffW()
+function DiffW()
+  let opt = ""
+   if &diffopt =~ "icase"
+     let opt = opt . "-i "
+   endif
+   if &diffopt =~ "iwhite"
+     let opt = opt . "-w " " swapped vim's -b with -w
+   endif
+   silent execute "!diff -a --binary " . opt .
+     \ v:fname_in . " " . v:fname_new .  " > " . v:fname_out
+endfunction
 
