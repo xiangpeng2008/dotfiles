@@ -35,9 +35,10 @@ let mapleader = "," "set leader to ,
 " wrap long line
 set wrap
 
+set noswapfile
 " set no number
-set nonumber
 set relativenumber
+set number
 
 set hlsearch incsearch
 " ignorecase and smartcase can work together
