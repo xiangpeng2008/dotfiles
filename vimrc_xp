@@ -125,12 +125,21 @@ if ! has('gui_running')
 endif
 " }}}
 
+" augroup ------------- {{{
 " only for linux, to double check
 augroup rsync
     autocmd!
     "autocmd BufWrite * :execute '!echo rsync ' expand('%:p') 'nyzls147c:'.expand('%:p').';'
     "autocmd BufWrite * :execute silent! '!rsync ' expand('%:p') 'nyzls147c:'.expand('%:p') '$1 > /dev/null 2>&1'
     autocmd BufWrite * silent !rsync %:p nyzls147c:%:p $1>/dev/null 2>&1 &
+augroup END
+augroup nerdtree
+    " Exit Vim if NERDTree is the only window remaining in the only tab.
+    autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+    " Close the tab if NERDTree is the only window remaining in it.
+    autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+augroup END
+" }}}
 " highlight search
 set hlsearch
 
