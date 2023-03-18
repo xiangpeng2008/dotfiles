@@ -15,6 +15,8 @@ Plug 'fladson/vim-kitty', {'branch': 'main'}
 Plug 'preservim/nerdtree'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
+Plug 'github/copilot.vim'
+Plug 'jeetsukumaran/vim-indentwise'
 
 if $TERM !=# "xterm-kitty"
     Plug 'epeli/slimux'
