@@ -1,4 +1,6 @@
 
+scriptencoding utf-8
+set encoding=utf-8
 set nocompatible "should be put in the very start
 
 " pluggin ------------- {{{
