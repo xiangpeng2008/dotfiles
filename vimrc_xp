@@ -15,6 +15,7 @@ Plug 'fladson/vim-kitty', {'branch': 'main'}
 Plug 'preservim/nerdtree'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
+"Plug 'github/copilot.vim', {'branch': 'release'}
 
 if $TERM !=# "xterm-kitty"
     Plug 'epeli/slimux'
@@ -160,6 +161,8 @@ let &t_EI .= "\<Esc>[?2004l"
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlPLastMode'
 let g:ctrlp_root_markers = ['.ctrlp']
+" open new tab before current one
+let g:ctrlp_tabpage_position = 'bc'
 
 " double check, airline
 let g:airline#extensions#tabline#enabled = 1
