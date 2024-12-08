@@ -1,4 +1,6 @@
 
+inoremap <esc> <esc>:w<cr>l
+inoremap <F2> <esc>:w<cr>
 scriptencoding utf-8
 set encoding=utf-8
 set nocompatible "should be put in the very start
